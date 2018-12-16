@@ -2,27 +2,27 @@
 Log in  and scrape your homeworks on Webuntis
 (Currently working for the Lycée technique of Bonnevoie.)
 Added support for other schools:
-LTB
-ATHENEE
-ECG
-LAM
-LAML
-LBV
-LCD
-LGE
-LGL
-LJBM
-LML
-LMRL
-LNB
-LRSL
-LTC
-LTETT
-LTMA
-LTPS
-LTPES
-MLG 
-SPORTLYCEE
+LTB.
+ATHENEE.
+ECG.
+LAM.
+LAML.
+LBV.
+LCD.
+LGE.
+LGL.
+LJBM.
+LML.
+LMRL.
+LNB.
+LRSL.
+LTC.
+LTETT.
+LTMA.
+LTPS.
+LTPES.
+MLG.
+SPORTLYCEE.
 I am working on other schools.
 
 To run the script:
