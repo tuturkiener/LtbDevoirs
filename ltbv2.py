@@ -2,17 +2,10 @@
 
 import requests
 from bs4 import BeautifulSoup as bs
-from selenium import webdriver
-from requests.utils import dict_from_cookiejar
 import time
-import pickle
 import json
 from utils import c_logging, n_logging
-import sys
-import datetime
-import random
 from termcolor import colored, cprint
-from textwrap import wrap
 from getpass import getpass
 
 login_url = "https://ssl.education.lu/saml/module.php/discopower/disco.php?entityID=https%3A%2F%2Fssl.education.lu%2Fsaml%2Fmodule.php%2Fsaml%2Fsp%2Fmetadata.php%2Fdisco&return=https%3A%2F%2Fssl.education.lu%2Fsaml%2Fmodule.php%2Fsaml%2Fsp%2Fdiscoresp.php%3FAuthID%3D_024ae1618cc35755a50cdb4e2aa77bf935aef071a3%253Ahttps%253A%252F%252Fssl.education.lu%252Fsaml%252Fsaml2%252Fidp%252FSSOService.php%253Fspentityid%253Dwebuntis.antiope%2526cookieTime%253D1537873681&returnIDParam=idpentityid&idpentityid=https%3A%2F%2Fssl.education.lu%2Fsamlidp%2Fsaml2%2Fidp%2Fmetadata.php"
