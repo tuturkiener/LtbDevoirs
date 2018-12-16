@@ -2,6 +2,7 @@
 Log in  and scrape your homeworks on Webuntis
 (Currently working for the Lycée technique of Bonnevoie.)
 Added support for other schools:
+
             1.LTB
             2.ATHENEE
             3.ECG
