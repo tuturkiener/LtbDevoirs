@@ -7,15 +7,62 @@ import json
 from utils import c_logging, n_logging
 from termcolor import colored, cprint
 from getpass import getpass
+import sys
 
-login_url = "https://ssl.education.lu/saml/module.php/discopower/disco.php?entityID=https%3A%2F%2Fssl.education.lu%2Fsaml%2Fmodule.php%2Fsaml%2Fsp%2Fmetadata.php%2Fdisco&return=https%3A%2F%2Fssl.education.lu%2Fsaml%2Fmodule.php%2Fsaml%2Fsp%2Fdiscoresp.php%3FAuthID%3D_024ae1618cc35755a50cdb4e2aa77bf935aef071a3%253Ahttps%253A%252F%252Fssl.education.lu%252Fsaml%252Fsaml2%252Fidp%252FSSOService.php%253Fspentityid%253Dwebuntis.antiope%2526cookieTime%253D1537873681&returnIDParam=idpentityid&idpentityid=https%3A%2F%2Fssl.education.lu%2Fsamlidp%2Fsaml2%2Fidp%2Fmetadata.php"
+login_url = "https://antiope.webuntis.com/WebUntis/saml/login?idp=https%3A%2F%2Fssl.education.lu%2Fsaml%2Fsaml2%2Fidp%2Fmetadata.php"
 session = requests.Session()
 session.max_redirects = 999
 headers = {
 			"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3440.106 Safari/537.36"
 			}
+c_logging(" - What school are you going to? ",'green');school=input()
+#SCHOOLS-----------------------------------------------------
+if school == "LTB" or school =="ltb":
+	school = "https://antiope.webuntis.com/WebUntis/?school=LTB#/basic/main"
+if school == "ATHENEE" or school =="athenee":
+	school = "https://antiope.webuntis.com/WebUntis/?school=al.lu#/basic/main"
+if school == "ECG" or school =="ecg":
+	school = "https://antiope.webuntis.com/WebUntis/?school=ltecg#/basic/main"
+if school == "LAM" or school =="lam":
+	school = "https://antiope.webuntis.com/WebUntis/?school=lam#/basic/main"
+if school == "LAML" or school =="laml":
+	school = "https://antiope.webuntis.com/WebUntis/?school=laml#/basic/main"
+if school == "LBV" or school =="lbv":
+	school = "https://antiope.webuntis.com/WebUntis/?school=LBV#/basic/main"
+if school == "LCD" or school =="lcd":
+	school = "https://antiope.webuntis.com/WebUntis/?school=LCD#/basic/main"
+if school == "LGE" or school =="lge":
+	school = "https://antiope.webuntis.com/WebUntis/?school=LGE#/basic/main"
+if school == "LGL" or school =="lgl":
+	school = "https://antiope.webuntis.com/WebUntis/?school=LGL#/basic/main"
+if school == "LJBM" or school =="ljbm":
+	school = "https://antiope.webuntis.com/WebUntis/?school=ljbm#/basic/main"
+if school == "LML" or school =="lml":
+	school = "https://antiope.webuntis.com/WebUntis/?school=lml#/basic/main"
+if school == "LMRL" or school =="lmrl":
+	school = "https://antiope.webuntis.com/WebUntis/?school=lmrl#/basic/main"
+if school == "LNB" or school =="lnb":
+	school = "https://antiope.webuntis.com/WebUntis/?school=lnb#/basic/main"
+if school == "LRSL" or school =="lrsl":
+	school = "https://antiope.webuntis.com/WebUntis/?school=lrsl#/basic/main"
+if school == "LTC" or school =="ltc":
+	school = "https://antiope.webuntis.com/WebUntis/?school=LTC#/basic/main"
+if school == "LTETT" or school =="ltett":
+	school = "https://antiope.webuntis.com/WebUntis/?school=ltett#/basic/main"
+if school == "LTMA" or school =="ltma":
+	school = "https://antiope.webuntis.com/WebUntis/?school=LTMA#/basic/main"
+if school == "LTPS" or school =="ltps":
+	school = "https://antiope.webuntis.com/WebUntis/?school=LTPS#/basic/main"
+if school == "LTPES" or school =="ltpes":
+	school = "https://antiope.webuntis.com/WebUntis/?school=LTPES#/basic/main"
+if school == "MLG" or school =="mlg":
+	MLG = "https://antiope.webuntis.com/WebUntis/?school=MLG#/basic/main"
+if school == "SPORTLYCEE" or school =="sportlycee":
+	school = "https://antiope.webuntis.com/WebUntis/?school=Sportlycee#/basic/main"
+#------------------------------------------------------------
 c_logging(" - Username: ",'green');username=input()
 password=getpass(" - Password: ")
+
 
 #Lecon
 #----------------
@@ -26,7 +73,7 @@ password=getpass(" - Password: ")
 def get_IAM_link():
 	global session
 	global IAM_page
-	get_jsession_cookie = session.get('https://antiope.webuntis.com/WebUntis/?school=LTB#/basic/main')
+	get_jsession_cookie = session.get(school)
 	re = session.get(login_url,headers = headers)
 	#first_link = re.headers.get("Location")
 	IAM_link = bs(re.text,"html.parser")
@@ -63,13 +110,15 @@ def login():
 				"AuthState":auth_state_value
 				}
 	login = session.post(login_post_url,headers = headers, data = payload)
-	#print(login.text)
 
 	#VERIFY if login was sucessfull!
 
 	verify = bs(login.text,"html.parser")
-	if "Nom d'utilisateur ou mot de passe incorrect" in login.text:
-		c_logging(" - Erreur: Nom d'utilisateur ou mot de passe incorrect ",'red')
+	if ("Nom d'utilisateur ou mot de passe incorrect" in login.text):
+		c_logging(" - Erreur: Nom d'utilisateur ou mot de passe incorrect.",'red')
+		sys.exit()
+	elif ("votre compte est temporairement" in login.text):
+		c_logging(" - Erreur: Compte temporairement bloque.",'red')
 		sys.exit()
 	else:
 		c_logging(" - Connexion reussie avec succes (session: {})".format(username),'green')
@@ -114,6 +163,11 @@ def java1():
 				"SAMLResponse":SAMLResponse2
 				}
 	post2 = session.post(endpoint2,headers = special_headers,data = payload,allow_redirects = False)
+	if post2.status_code == 200:
+		c_logging(" - Connexion reussie avec succes (session: {})".format(username),'green')
+	else:
+		c_logging(" - Erreur: Ecole incorrecte",'red')
+		sys.exit()
 	get = session.get('https://antiope.webuntis.com/WebUntis/index.do')
 	#get = session.get("https://antiope.webuntis.com/WebUntis/index.do#/basic/main",headers = headers)
 	#print(get.text)
