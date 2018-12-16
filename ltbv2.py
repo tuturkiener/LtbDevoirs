@@ -120,8 +120,6 @@ def login():
 	elif ("votre compte est temporairement" in login.text):
 		c_logging(" - Erreur: Compte temporairement bloque.",'red')
 		sys.exit()
-	else:
-		c_logging(" - Connexion reussie avec succes (session: {})".format(username),'green')
 	#print(login.text)
 	#print(error_text)
 	SAML = bs(login.text,"html.parser")
@@ -163,7 +161,7 @@ def java1():
 				"SAMLResponse":SAMLResponse2
 				}
 	post2 = session.post(endpoint2,headers = special_headers,data = payload,allow_redirects = False)
-	if post2.status_code == 200:
+	if post2.status_code == 302:
 		c_logging(" - Connexion reussie avec succes (session: {})".format(username),'green')
 	else:
 		c_logging(" - Erreur: Ecole incorrecte",'red')
