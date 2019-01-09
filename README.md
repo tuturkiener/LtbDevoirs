@@ -28,15 +28,8 @@ I am working on other schools.
 
 To run the script:
 1. Install the needed modules:
-      -requests
-      -bs4
-      -time
-      -json
-      -time
-      -termcolor
-      -getpass
-2. Open you Terminal:
-      -run ltbv2.py
+      type: pip install -r requirements.txt
+2. Type WebUntisScraper.py & ENTER
       
  3. Enter your credentials and scrape :)
       
