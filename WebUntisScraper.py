@@ -75,7 +75,7 @@ with open('UserPass.txt') as f:
 		password = lines.split(':')[1]
 	else:
 		with open("UserPass.txt", "w") as f:
-			f.clea
+			f.clear()
 			c_logging(" - It seems that this is your first login. Please enter your credentials below, they will then be saved in the UserPass.txt",'green')
 			c_logging(" - Username: ",'green');username=input()
 			password=getpass(" - Password: ")
